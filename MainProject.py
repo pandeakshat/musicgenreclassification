@@ -52,7 +52,6 @@ import librosa
 import os
 import sys
 import matplotlib
-import soundfile as sf
 from pydub import AudioSegment
 from pydub.playback import play
 from pydub.utils import which
