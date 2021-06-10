@@ -6,7 +6,7 @@ import numpy as np # linear algebra
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import os
 import youtube_dl
-import librosa # to calculate features from the audio file
+import librosa
 import librosa.display
 from PIL import Image
 import pathlib
@@ -56,7 +56,6 @@ from pydub import AudioSegment
 from pydub.playback import play
 from pydub.utils import which
 import nightcore as nc
-# region Extras
 matplotlib.use('Agg')
 seed=12
 np.random.seed(seed)
