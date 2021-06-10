@@ -1374,7 +1374,7 @@ if(nav=="Major Project"):
         import numpy as np
 
         # Read data
-        data = pd.read_csv(f'Data/features_30_sec.csv', index_col='filename')
+        data = pd.read_csv(f'features_30_sec.csv', index_col='filename')
 
         # Extract labels
         labels = data[['label']]
