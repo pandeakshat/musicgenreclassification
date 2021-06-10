@@ -6,8 +6,7 @@ import numpy as np # linear algebra
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import os
 import youtube_dl
-import librosa
-import soundfile as sf
+import librosa # to calculate features from the audio file
 import librosa.display
 from PIL import Image
 import pathlib
@@ -53,10 +52,12 @@ import librosa
 import os
 import sys
 import matplotlib
+import soundfile as sf
 from pydub import AudioSegment
 from pydub.playback import play
 from pydub.utils import which
 import nightcore as nc
+# region Extras
 matplotlib.use('Agg')
 seed=12
 np.random.seed(seed)
@@ -581,7 +582,6 @@ if(nav=="Minor Project"):
                 plt.figure(figsize=(14, 14))
                 plt.title("Logistic Regression feature importance via permutation importance")
                 plt.barh(range(X_dev.shape[1]), perm.feature_importances_[perm_indices])
-                plt.yticks(range(X_dev.shape[1]), perm_features)
                 plt.ylim([X_dev.shape[1], -1])
                 plt.show()
 
@@ -837,7 +837,6 @@ if(nav=="Minor Project"):
                     plt.figure(figsize=(14, 14))
                     plt.title("Logistic Regression feature importance via permutation importance")
                     plt.barh(range(X_dev.shape[1]), perm.feature_importances_[perm_indices])
-                    plt.yticks(range(X_dev.shape[1]), perm_features)
                     plt.ylim([X_dev.shape[1], -1])
                     plt.show()
 
@@ -1072,7 +1071,6 @@ if(nav=="Minor Project"):
                 plt.figure(figsize=(14, 14))
                 plt.title("Logistic Regression feature importance via permutation importance")
                 plt.barh(range(X_dev.shape[1]), perm.feature_importances_[perm_indices])
-                plt.yticks(range(X_dev.shape[1]), perm_features)
                 plt.ylim([X_dev.shape[1], -1])
                 plt.show()
 
@@ -1374,7 +1372,7 @@ if(nav=="Major Project"):
         import numpy as np
 
         # Read data
-        data = pd.read_csv(f'features_30_sec.csv', index_col='filename')
+        data = pd.read_csv(f'Data/features_30_sec.csv', index_col='filename')
 
         # Extract labels
         labels = data[['label']]
