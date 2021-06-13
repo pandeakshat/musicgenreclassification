@@ -74,7 +74,7 @@ np.random.seed(seed)
 # endregion
 
 favicon = "music.png"
-with Image.open(filename) as image:
+with Image.open(favicon) as image:
     width, height = image.size
 
     
