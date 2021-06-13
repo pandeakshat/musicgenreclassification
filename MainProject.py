@@ -62,6 +62,7 @@ matplotlib.use('Agg')
 seed=12
 np.random.seed(seed)
 import pickle
+import streamlit.components.v1 as components
 
 
 sns.set_style('whitegrid')
@@ -70,7 +71,7 @@ seed = 12
 np.random.seed(seed)
 # endregion
 
-st.beta_set_page_config(page_title='Music Genre Classification', page_icon = favicon, layout = 'wide', initial_sidebar_state = 'auto')
+st.set_page_config(page_title='Music Genre Classification', page_icon = favicon, layout = 'wide', initial_sidebar_state = 'auto')
 # region Sidebar
 st.sidebar.title("Project Title: \n Music Genre Classification using AI")
 st.sidebar.header(" Members :")
