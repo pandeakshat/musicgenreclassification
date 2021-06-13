@@ -63,6 +63,8 @@ seed=12
 np.random.seed(seed)
 import pickle
 import streamlit.components.v1 as components
+from PIL import Image
+  
 
 
 sns.set_style('whitegrid')
@@ -71,8 +73,13 @@ seed = 12
 np.random.seed(seed)
 # endregion
 
-st.set_page_config(page_title='Music Genre Classification',layout = 'wide', initial_sidebar_state = 'auto')
-#st.set_page_config(page_title='Music Genre Classification', page_icon = favicon, layout = 'wide', initial_sidebar_state = 'auto')
+favicon = "music.png"
+with Image.open(filename) as image:
+    width, height = image.size
+
+    
+#st.set_page_config(page_title='Music Genre Classification',layout = 'wide', initial_sidebar_state = 'auto')
+st.set_page_config(page_title='Music Genre Classification', page_icon = favicon, layout = 'wide', initial_sidebar_state = 'auto')
 
 # region Sidebar
 st.sidebar.title("Project Title: \n Music Genre Classification using AI")
