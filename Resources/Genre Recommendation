@@ -1,0 +1,65 @@
+# Usual Libraries
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+%matplotlib inline
+import sklearn
+import librosa
+import librosa.display
+import IPython.display as ipd
+import warnings
+warnings.filterwarnings('ignore')
+import os
+general_path = 'Data'
+from sklearn import preprocessing
+
+# Libraries
+import IPython.display as ipd
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn import preprocessing
+import pandas as pd
+import numpy as np
+
+# Read data
+data = pd.read_csv(f'Data/features_30_sec.csv', index_col='filename')
+
+# Extract labels
+labels = data[['label']]
+
+# Drop labels from original dataframe
+data = data.drop(columns=['label'])
+
+data.head()
+
+# Scale the data
+data_scaled=preprocessing.scale(data)
+print('Scaled data type:', type(data_scaled))
+
+# Cosine similarity
+similarity = cosine_similarity(data_scaled)
+print("Similarity shape:", similarity.shape)
+
+# Convert into a dataframe and then set the row index and column names as labels
+sim_df_labels = pd.DataFrame(similarity)
+sim_df_names = sim_df_labels.set_index(labels.index)
+sim_df_names.columns = labels.index
+
+sim_df_names.head()
+
+
+def find_similar_songs(name):
+    # Find songs most similar to another song
+    series = sim_df_names[name].sort_values(ascending = False)
+    
+    # Remove cosine similarity == 1 (songs will always have the best match with themselves)
+    series = series.drop(name)
+    # Display the 5 top matches 
+    print("\n*******\nSimilar songs to ", name)
+    print(series.head(10))
+    series.to_csv('temp.csv', index=True)
+    
+
+find_similar_songs('pop.00019.wav') 
+
+ipd.Audio(f'{general_path}/genres_original/pop/pop.00019.wav')
