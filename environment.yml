@@ -256,4 +256,5 @@ dependencies:
   - pip:
     - nightcore==1.1.0
     - pydub==0.23.1
+    - imageio==2.9.0
 prefix: /home/akshat/anaconda3/envs/majorProject
