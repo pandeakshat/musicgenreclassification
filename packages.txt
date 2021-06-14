@@ -1,1 +1,8 @@
 libsndfile1
+libfluidsynth1 
+fluid-soundfont-gm 
+build-essential 
+libasound2-dev 
+libjack-dev
+
+
