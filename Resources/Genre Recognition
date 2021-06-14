@@ -1,0 +1,173 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set_style('whitegrid')
+%matplotlib inline
+import warnings
+warnings.filterwarnings('ignore')
+from scipy.stats import uniform, randint
+import sklearn.metrics as skm
+import sklearn.model_selection as skms
+import sklearn.preprocessing as skp
+from sklearn.linear_model import LogisticRegression
+import sklearn.ensemble as ske
+import eli5
+from eli5.sklearn import PermutationImportance
+from pprint import pprint
+import random
+import librosa, IPython
+import librosa.display as lplt
+seed = 12
+np.random.seed(seed)
+
+df = pd.read_csv('datamain.csv')
+df.head()
+
+
+print("Dataset has",df.shape)
+print("Count of Positive and Negative samples")
+df.label.value_counts().reset_index()
+# map labels to index
+label_index = dict()
+index_label = dict()
+for i, x in enumerate(df.label.unique()):
+    label_index[x] = i
+    index_label[i] = x
+print(label_index)
+print(index_label)
+
+
+
+# update labels in df to index
+df.label = [label_index[l] for l in df.label]
+
+
+df_shuffle = df.sample(frac=1, random_state=seed).reset_index(drop=True)
+# remove irrelevant columns
+df_shuffle.drop(['filename'], axis=1, inplace=True)
+df_y = df_shuffle.pop('label')
+df_X = df_shuffle
+
+# split into train dev and test
+X_train, df_test_valid_X, y_train, df_test_valid_y = skms.train_test_split(df_X, df_y, train_size=0.7, random_state=seed, stratify=df_y)
+X_dev, X_test, y_dev, y_test = skms.train_test_split(df_test_valid_X, df_test_valid_y, train_size=0.66, random_state=seed, stratify=df_test_valid_y)
+
+
+print(f"Train set has {X_train.shape[0]} records out of {len(df_shuffle)} which is {round(X_train.shape[0]/len(df_shuffle)*100)}%")
+print(f"Dev set has {X_dev.shape[0]} records out of {len(df_shuffle)} which is {round(X_dev.shape[0]/len(df_shuffle)*100)}%")
+print(f"Test set has {X_test.shape[0]} records out of {len(df_shuffle)} which is {round(X_test.shape[0]/len(df_shuffle)*100)}%")
+
+
+
+print(y_train.value_counts()[0]/y_train.shape[0]*100)
+print(y_dev.value_counts()[0]/y_dev.shape[0]*100)
+print(y_test.value_counts()[0]/y_test.shape[0]*100)
+
+
+
+scaler = skp.StandardScaler()
+X_train = pd.DataFrame(scaler.fit_transform(X_train), columns=X_train.columns)
+X_dev = pd.DataFrame(scaler.transform(X_dev), columns=X_train.columns)
+X_test = pd.DataFrame(scaler.transform(X_test), columns=X_train.columns)
+
+def predictProba(clf, X, dev=False):
+    y_true = y_train
+    if dev:
+        X = X_dev[X.columns]
+        y_true = y_dev
+    y_pred_proba_X = clf.predict_proba(X)
+    y_pred_X = clf.predict(X)
+    fig, ax = plt.subplots(figsize=(6, 6))
+    skm.plot_confusion_matrix(clf, X, y_true, display_labels=X.columns, cmap=plt.cm.Blues, xticks_rotation=90, ax=ax)
+    plt.show()
+    print(skm.classification_report(y_true, y_pred_X, digits=3))
+    print("=====================================================")
+    
+lr = LogisticRegression(random_state=seed)
+lr.fit(X_train,y_train)
+predictProba(lr, X_train)
+predictProba(lr, X_train, dev=True)
+    
+
+perm = PermutationImportance(lr, random_state=seed).fit(X_train, y_train, n_iter=10)
+print("Feature Importances using Permutation Importance")
+eli5.show_weights(perm, feature_names = X_dev.columns.tolist())
+
+
+
+
+# plot the permutation importances
+perm_indices = np.argsort(perm.feature_importances_)[::-1]
+perm_features = [X_dev.columns.tolist()[xx] for xx in perm_indices]
+plt.figure(figsize=(14, 14))
+plt.title("Logistic Regression feature importance via permutation importance")
+plt.barh(range(X_dev.shape[1]), perm.feature_importances_[perm_indices])
+plt.yticks(range(X_dev.shape[1]), perm_features)
+plt.ylim([X_dev.shape[1], -1])
+plt.show()
+
+
+
+# build model using perm selected top 30 features
+lr = LogisticRegression()
+X_train_perm = X_train[perm_features[:30]]
+X_train_rfe = X_train_perm
+lr.fit(X_train_perm,y_train)
+predictProba(lr, X_train_perm)
+predictProba(lr, X_train_perm, dev=True)
+
+
+
+# build model using perm selected top 30 features
+lr = LogisticRegression()
+X_train_perm = X_train[perm_features[:30]]
+X_train_rfe = X_train_perm
+lr.fit(X_train_perm,y_train)
+predictProba(lr, X_train_perm)
+predictProba(lr, X_train_perm, dev=True)
+
+
+
+import catboost as cb
+print(cb.__version__)
+
+
+
+cbc = cb.CatBoostClassifier(random_state=seed, verbose=0, eval_metric='Accuracy', loss_function='MultiClass')
+cbc.fit(X_train_rfe, y_train)
+predictProba(cbc, X_train_rfe)
+
+pred = cbc.predict_proba(X_test)
+preds= pred[:,:]
+
+
+import youtube_dl
+import os 
+
+genres = 'blues classical country disco hiphop jazz metal pop reggae rock'.split()
+
+songname='jazz.wav'
+    
+y, sr = librosa.load(songname, mono=True, duration=30)
+chroma_stft = librosa.feature.chroma_stft(y=y, sr=sr)
+rms = librosa.feature.rms(y=y)
+spec_cent = librosa.feature.spectral_centroid(y=y, sr=sr)
+spec_bw = librosa.feature.spectral_bandwidth(y=y, sr=sr)
+rolloff = librosa.feature.spectral_rolloff(y=y, sr=sr)
+zcr = librosa.feature.zero_crossing_rate(y)
+mfcc = librosa.feature.mfcc(y=y, sr=sr)
+tempo = float(librosa.beat.tempo(y=y, sr=sr)[0])
+row = [tempo, np.mean(chroma_stft), np.mean(rms), np.mean(spec_cent), np.mean(spec_bw), np.mean(rolloff), np.mean(zcr)]
+for e in mfcc:
+    row.append(np.mean(e))
+
+X_test = np.asarray(row)
+print('TYPE:', genres[cbc.predict(X_test)[0]])
+
+plt.figure(figsize=(12, 8))
+D = librosa.amplitude_to_db(np.abs(librosa.stft(y)), ref=np.max)
+plt.subplot(4, 2, 1)
+librosa.display.specshow(D, y_axis='linear')
+plt.colorbar(format='%+2.0f dB')
+plt.title('Linear-frequency power spectrogram')
