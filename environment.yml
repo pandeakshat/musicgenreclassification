@@ -46,6 +46,7 @@ dependencies:
   - eli5=0.11.0=pyhd8ed1ab_0
   - entrypoints=0.3=py37_0
   - expat=2.4.1=h2531618_2
+  - ffmpeg=4.2.2=h20bf706_0
   - fontconfig=2.13.1=he4413a7_1000
   - freetype=2.10.4=h5ab3b9f_0
   - fribidi=1.0.10=h7b6447c_0
