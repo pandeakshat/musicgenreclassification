@@ -1174,7 +1174,7 @@ if(nav == "Advanced"):
             image = Image.open('rawwave1.png')
             st.image(image, caption="Waveform III")
 
-        link = '[Request Genre Conversion!]([Form Links for Project](https://www.notion.so/Form-Links-for-Project-def1737efbaa425bbf2f0a6ecfb55012))'
+        link = '[Request Genre Conversion!](https://docs.google.com/forms/d/e/1FAIpQLSeGCtdPzKEkGGppVBBflG9m-7rbFAzC1jCVRdnlU1UwtzCe0A/viewform?usp=sf_link)'
         st.markdown(link, unsafe_allow_html=True)
 
     if(options == "Recommendation"):
@@ -1522,7 +1522,7 @@ if(nav == "Advanced"):
             st.audio('Creation/music_out3.wav')
         
         st.write("Loved what you heard? Request for Genre Creation with sample music")
-        link = '[Request Genre Creation!]([Form Links for Project](https://forms.gle/stMRBKhYeCNcmGBG8))'
+        link = '[Request Genre Creation!](https://docs.google.com/forms/d/e/1FAIpQLSesvLl8aCNIp9RJwOTKE6DVEl87Pb4tU0HM7mgDP29zS1pI6g/viewform?usp=sf_link)'
         st.markdown(link, unsafe_allow_html=True)
 
     # endregion
@@ -1535,7 +1535,7 @@ if(nav == 'Conclusion'):
     st.subheader("Also please provide feedback on how it was and if you want something added to it in the future.")
     st.write(' ')
     st.write(' ')
-    link = '[Share Feedback!](https://forms.gle/mSXgBpwbtxUT4UGc8)'
+    link = '[Share Feedback!](https://docs.google.com/forms/d/e/1FAIpQLSdSP1CduU8ae9xNUT6jiK1EBJRHkzV2bmSnEEp9fiqP6pFGgQ/viewform?usp=sf_link)'
     st.markdown(link, unsafe_allow_html=True)
     
 # endregion
