@@ -287,7 +287,6 @@ dependencies:
     - jinja2==3.0.1
     - kfac==0.2.0
     - librosa==0.7.2
-    - llvmlite==0.32.1
     - mesh-tensorflow==0.1.19
     - midi2audio==0.1.1
     - mido==1.2.6
