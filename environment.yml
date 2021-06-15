@@ -192,7 +192,7 @@ dependencies:
   - ptyprocess=0.7.0=pyhd3deb0d_0
   - py-xgboost=1.4.0=py37h89c1867_0
   - pyarrow=3.0.0=py37he2832ee_12_cpu
-  - pyaudio=0.2.11=py37h7b6447c_2
+  - pyaudio=0.2.11=py37h8f50634_1002
   - pycparser=2.20=pyh9f0ad1d_2
   - pydeck=0.6.2=pyh44b312d_0
   - pygments=2.9.0=pyhd8ed1ab_0
