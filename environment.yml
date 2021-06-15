@@ -9,6 +9,7 @@ dependencies:
   - _py-xgboost-mutex=2.0=cpu_0
   - abseil-cpp=20210324.0=h9c3ff4c_0
   - absl-py=0.12.0=pyhd8ed1ab_0
+  - alsa-lib=1.2.3=h516909a_0
   - altair=4.1.0=py_1
   - appdirs=1.4.4=pyh9f0ad1d_0
   - argh=0.26.2=pyh9f0ad1d_1002
@@ -93,6 +94,7 @@ dependencies:
   - ipython=7.24.1=py37h085eea5_0
   - ipython_genutils=0.2.0=py_1
   - ipywidgets=7.6.3=pyhd3deb0d_0
+  - jack=1.9.18=hfd4fe87_1001
   - jedi=0.18.0=py37h89c1867_2
   - jinja2=3.0.1=pyhd8ed1ab_0
   - jmespath=0.10.0=pyh9f0ad1d_0
@@ -112,6 +114,7 @@ dependencies:
   - libblas=3.9.0=9_openblas
   - libcblas=3.9.0=9_openblas
   - libcurl=7.77.0=h2574ce0_0
+  - libdb=6.2.32=h9c3ff4c_0
   - libedit=3.1.20191231=he28a2e2_2
   - libev=4.33=h516909a_1
   - libevent=2.1.10=hcdb4288_3
