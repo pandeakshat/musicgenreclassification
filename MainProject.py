@@ -71,6 +71,7 @@ from pydub.playback import play
 from pydub.utils import which
 from PIL import Image
 import nightcore as nc
+import pyaudio
 
 
 #endregion
@@ -692,14 +693,14 @@ if(nav == "Basic"):
             stream.close()
             p.terminate()
 
-            wf = wave.open('recorded_audio.wav', 'wb')
+            wf = wave.open('Audio/recorded_audio.wav', 'wb')
             wf.setnchannels(CHANNELS)
             wf.setsampwidth(p.get_sample_size(FORMAT))
             wf.setframerate(FRAME_RATE)
             wf.writeframes(b''.join(frames))
             wf.close()
 
-            songname = 'recorded_audio.wav'
+            songname = 'Audio/recorded_audio.wav'
             st.audio(songname)
         if (choice == "Upload Audio"):
             songname = st.file_uploader("Upload the Audio", type=['wav'])
@@ -968,10 +969,10 @@ if(nav == "Advanced"):
 
             first.split('.')
             second.split('.')
-            OUTPUT_FILENAME = 'converted.wav'
+            OUTPUT_FILENAME = 'Audio/converted.wav'
             sf.write(OUTPUT_FILENAME, x, fs, 'PCM_24')
 
-            audio_data = 'converted.wav'
+            audio_data = 'Audio/converted.wav'
             data, sr = librosa.load(audio_data)
             audio_file = open(audio_data, "rb")
             audio_bytes = audio_file.read()
@@ -1157,10 +1158,10 @@ if(nav == "Advanced"):
 
             first.split('.')
             second.split('.')
-            OUTPUT_FILENAME = 'converted.wav'
+            OUTPUT_FILENAME = 'Audio/converted.wav'
             sf.write(OUTPUT_FILENAME, x, fs, 'PCM_24')
 
-            audio_data = 'converted.wav'
+            audio_data = 'Audio/converted.wav'
             data, sr = librosa.load(audio_data)
             audio_file = open(audio_data, "rb")
             audio_bytes = audio_file.read()
@@ -1293,9 +1294,9 @@ if(nav == "Advanced"):
             st.audio(audio_data)
             
             data, samplerate = sf.read(audio_data)
-            sf.write('upload_audio.wav', data, samplerate)
+            sf.write('Audio/upload_audio.wav', data, samplerate)
 
-            songname='upload_audio.wav'
+            songname='Audio/upload_audio.wav'
 
             if songname is not None:
                 data, sr = librosa.load(songname)
@@ -1309,7 +1310,7 @@ if(nav == "Advanced"):
             st.write("using Youtube URL")
             title = st.text_input('Youtube URL', '')
             if title is not '':
-                audio_data = f'audio_data.wav'
+                audio_data = f'Audio/audio_data.wav'
                 genres = 'blues classical country disco hiphop jazz metal pop reggae rock'.split()
                 genre = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                 ydl_opts = {
@@ -1321,7 +1322,7 @@ if(nav == "Advanced"):
                     }],
                     'outtmpl': audio_data
                     }
-                audio_data = f'audio_data.wav'
+                audio_data = f'Audio/audio_data.wav'
                 with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                     ydl.download([title])
                 
@@ -1362,14 +1363,14 @@ if(nav == "Advanced"):
             stream.close()
             p.terminate()
 
-            wf = wave.open('recorded_audio.wav', 'wb')
+            wf = wave.open('Audio/recorded_audio.wav', 'wb')
             wf.setnchannels(CHANNELS)
             wf.setsampwidth(p.get_sample_size(FORMAT))
             wf.setframerate(FRAME_RATE)
             wf.writeframes(b''.join(frames))
             wf.close()
 
-            songname = 'recorded_audio.wav'
+            songname = 'Audio/recorded_audio.wav'
 
             st.audio(songname)
         
@@ -1385,19 +1386,19 @@ if(nav == "Advanced"):
                 stepsvalue = st.slider("Pitch Shift Scale",min_value=1, max_value=10)
                 data, sr = librosa.load(songname)
                 data_ps = librosa.effects.pitch_shift(data, sr, n_steps=stepsvalue)
-                sf.write('pitchshift.wav', data_ps, sr, subtype='PCM_24')
-                st.audio('pitchshift.wav')
+                sf.write('Audio/pitchshift.wav', data_ps, sr, subtype='PCM_24')
+                st.audio('Audio/pitchshift.wav')
             if(choice2 == "Loop Song"):
                 st.write("Loop Song")
                 val = st.slider("Loop songs by", min_value=0, max_value=10)
                 loopsong = audio * val
-                loopsong.export("loopsong.wav", format="wav")
-                st.audio("loopsong.wav")
+                loopsong.export("Audio/loopsong.wav", format="wav")
+                st.audio("Audio/loopsong.wav")
             if(choice2 == "Reverse"):
                 st.write("Reverse Song")
                 backwards = audio.reverse()
-                backwards.export('reverse.wav', format="wav")
-                st.audio('reverse.wav')
+                backwards.export('Audio/reverse.wav', format="wav")
+                st.audio('Audio/reverse.wav')
             if(choice2 == "Louder/Quieter"):
                 st.write("Louder / Quieter")
                 st.write("Scale the loudness and quiteness of the song with slider")
@@ -1406,34 +1407,34 @@ if(nav == "Advanced"):
                 if(value < 0):
                     st.write("Changing Quiteness by", value, "dB")
                     quieter = audio + value
-                    quieter.export("quieter.wav", format="wav")
-                    st.audio("quieter.wav")
+                    quieter.export("Audio/quieter.wav", format="wav")
+                    st.audio("Audio/quieter.wav")
                 if(value > 0):
                     st.write("Changing Loudness by", value, "dB")
                     louder = audio + value
-                    louder.export('louder.wav', format="wav")
-                    st.audio('louder.wav')
+                    louder.export('Audio/louder.wav', format="wav")
+                    st.audio('Audio/louder.wav')
             if(choice2 == "Nightcore"):
                 st.write("Nightcore")
 
                 y, sr = librosa.load(songname)
                 y_fast = librosa.effects.time_stretch(y, 1.3)
                 y_fast = librosa.effects.pitch_shift(y, sr, n_steps=6)
-                sf.write('nightcore.wav', y_fast, sr, subtype='PCM_24')
-                st.audio("nightcore.wav")
+                sf.write('Audio/nightcore.wav', y_fast, sr, subtype='PCM_24')
+                st.audio("Audio/nightcore.wav")
 
             if(choice2 == "Librosa Effects"):
                 st.write("Librosa Effects")
                 y, sr = librosa.load(songname)
                 y_harmonic = librosa.effects.harmonic(y)
                 st.write("Harmonic Values")
-                sf.write('librosa1.wav', y_harmonic, sr, subtype='PCM_24')
-                st.audio("librosa1.wav")
+                sf.write('Audio/librosa1.wav', y_harmonic, sr, subtype='PCM_24')
+                st.audio("Audio/librosa1.wav")
 
                 y_percussive = librosa.effects.percussive(y)
                 st.write("Percussive values")
-                sf.write('librosa2.wav', y_percussive, sr, subtype='PCM_24')
-                st.audio("librosa2.wav")
+                sf.write('Audio/librosa2.wav', y_percussive, sr, subtype='PCM_24')
+                st.audio("Audio/librosa2.wav")
                 _, beat_frames = librosa.beat.beat_track(
                     y=y, sr=sr, hop_length=512)
                 beat_samples = librosa.frames_to_samples(beat_frames)
@@ -1441,8 +1442,8 @@ if(nav == "Advanced"):
                     beat_samples, frame_length=2, hop_length=1).T
                 y_out = librosa.effects.remix(y, intervals[::-1])
                 st.write("Librosa Remix")
-                sf.write('librosa3.wav', y_out, sr, subtype='PCM_24')
-                st.audio("librosa3.wav")
+                sf.write('Audio/librosa3.wav', y_out, sr, subtype='PCM_24')
+                st.audio("Audio/librosa3.wav")
             if(choice2 == "Vocal Separation"):
                 st.write("Vocal Seperation")
                 y, sr = librosa.load(songname, duration=30)
@@ -1475,8 +1476,8 @@ if(nav == "Advanced"):
                 S_foreground = mask_v * S_full
                 S_background = mask_i * S_full
                 new_y = librosa.istft(S_foreground * phase)
-                sf.write('vocal.wav', new_y, sr, subtype='PCM_24')
-                s1.audio('vocal.wav')
+                sf.write('Audio/vocal.wav', new_y, sr, subtype='PCM_24')
+                s1.audio('Audio/vocal.wav')
             if(choice2 == "Extract Background"):
                 st.write("Extract Background")
                 audio_monoL = audio.split_to_mono()[0]
@@ -1489,8 +1490,8 @@ if(nav == "Advanced"):
                 audio_CentersOut = audio_monoL.overlay(audio_monoR_inv)
 
                 # Export merged audio file
-                fh = audio_CentersOut.export('Background.wav', format="wav")
-                st.audio('Background.wav')
+                fh = audio_CentersOut.export('Audio/Background.wav', format="wav")
+                st.audio('Audio/Background.wav')
     
     
     if(options == "Creation"):
