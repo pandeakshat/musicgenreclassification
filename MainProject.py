@@ -1003,9 +1003,7 @@ if(nav == "Advanced"):
         col1.audio(audio_bytes, format="audio/wav")
         plt.figure(figsize=(12, 4))
         librosa.display.waveplot(data, color="#502A75")
-        plt.savefig('rawwave1.png')
-        image = Image.open('rawwave1.png')
-        col1.image(image, caption="Waveform I")
+
         audio_choice2 = col2.selectbox(" Select Converted Genre ", (
             "blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"))
         random2file = random.randint(0, 99)
@@ -1024,9 +1022,7 @@ if(nav == "Advanced"):
         col2.audio(audio_bytes2, format="audio/wav")
         plt.figure(figsize=(12, 4))
         librosa.display.waveplot(data2, color="#502A75")
-        plt.savefig('rawwave2.png')
-        image = Image.open('rawwave2.png')
-        col2.image(image, caption="Waveform II")
+
 
         link = '[Request Genre Conversion!](https://docs.google.com/forms/d/e/1FAIpQLSeGCtdPzKEkGGppVBBflG9m-7rbFAzC1jCVRdnlU1UwtzCe0A/viewform?usp=sf_link)'
         st.markdown(link, unsafe_allow_html=True)
