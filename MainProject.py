@@ -323,7 +323,7 @@ if(nav == "Basic"):
                     plt.figure(figsize=(15, 5))
                     librosa.display.specshow(
                         chromagram, x_axis='time', y_axis='chroma', cmap='coolwarm')
-                    plt.savefig("Iamges/chroma.png")
+                    plt.savefig("Images/chroma.png")
                     image = Image.open("Images/chroma.png")
                     st.image(image, caption="Chroma Features")
 
