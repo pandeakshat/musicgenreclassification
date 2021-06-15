@@ -197,7 +197,7 @@ if(nav == "Basic"):
     			-Visualization tools included.''')
     # endregion
 
-    df = pd.read_csv(f"data.csv")
+    df = pd.read_csv(f"Dataset/data.csv")
     ef = df.label.value_counts().reset_index()
     df3 = df.shape
     df4 = df.size
@@ -230,11 +230,11 @@ if(nav == "Basic"):
                 select_dataset = st.selectbox(
                     "Select Dataset", ("1. Mean Extracted Dataset", "2. Mean and Variance Dataset", "3. GTZAN Dataset"))
                 if (select_dataset == "1. Mean Extracted Dataset"):
-                    dataset = pd.read_csv(f"data.csv")
+                    dataset = pd.read_csv(f"Dataset/data.csv")
                 elif (select_dataset == "2. Mean and Variance Dataset"):
-                    dataset = pd.read_csv(f"data2.csv")
+                    dataset = pd.read_csv(f"Dataset/data2.csv")
                 elif (select_dataset == "3. GTZAN Dataset"):
-                    dataset = pd.read_csv(f"features_30_sec.csv")
+                    dataset = pd.read_csv(f"Dataset/features_30_sec.csv")
 
             choice2 = st.selectbox(" Dataset or Audio",
                                    ("Dataset Features", "Audio Features"))
@@ -279,8 +279,8 @@ if(nav == "Basic"):
                 if st.checkbox("Raw Wave"):
                     plt.figure(figsize=(12, 4))
                     librosa.display.waveplot(data, color="#502A75")
-                    plt.savefig('rawwave.png')
-                    image = Image.open('rawwave.png')
+                    plt.savefig('Images/rawwave.png')
+                    image = Image.open('Images/rawwave.png')
                     st.image(image, caption="Raw Wave")
 
                 placeholder = st.empty()
@@ -290,8 +290,8 @@ if(nav == "Basic"):
                     plt.figure(figsize=(14, 6))
                     librosa.display.specshow(
                         Xdb, sr=sr, x_axis='time', y_axis='log')
-                    plt.savefig("colorbar.png")
-                    image = Image.open('colorbar.png')
+                    plt.savefig("Images/colorbar.png")
+                    image = Image.open('Images/colorbar.png')
                     st.image(image, caption="Spectrogram I")
                 placeholder = st.empty()
                 if st.checkbox("Spectral Rolloff"):
@@ -300,8 +300,8 @@ if(nav == "Basic"):
                     plt.figure(figsize=(12, 4))
                     librosa.display.waveplot(
                         data, sr=sr, alpha=0.4, color="#2B4F72")
-                    plt.savefig("spectralrolloff.png")
-                    image = Image.open("spectralrolloff.png")
+                    plt.savefig("Images/spectralrolloff.png")
+                    image = Image.open("Images/spectralrolloff.png")
                     st.image(image, caption="Spectral Rolloff")
                 placeholder = st.empty()
                 if st.checkbox("Zero- Crossing Rate"):
@@ -310,8 +310,8 @@ if(nav == "Basic"):
                     plt.figure(figsize=(14, 5))
                     plt.plot(data[n0:n1], color="#2B4F72")
                     plt.grid()
-                    plt.savefig("zero.png")
-                    image = Image.open("zero.png")
+                    plt.savefig("Images/zero.png")
+                    image = Image.open("Images/zero.png")
                     st.image(image, caption="Zero-Crossing Rate")
                     zero_crossings = librosa.zero_crossings(
                         data[n0:n1], pad=False)
@@ -323,8 +323,8 @@ if(nav == "Basic"):
                     plt.figure(figsize=(15, 5))
                     librosa.display.specshow(
                         chromagram, x_axis='time', y_axis='chroma', cmap='coolwarm')
-                    plt.savefig("chroma.png")
-                    image = Image.open("chroma.png")
+                    plt.savefig("Iamges/chroma.png")
+                    image = Image.open("Images/chroma.png")
                     st.image(image, caption="Chroma Features")
 
         if (choice == "Create New Dataset[Tutorial]"):
@@ -340,7 +340,7 @@ if(nav == "Basic"):
                 header = header.split()
 
                 # Dataset creation function
-                file = open('data2.csv', 'w', newline='')
+                file = open('Dataset/data2.csv', 'w', newline='')
                 with file:
                     writer = csv.writer(file)
                     writer.writerow(header)
@@ -369,7 +369,7 @@ if(nav == "Basic"):
                             to_append += f' {np.mean(e)}'
                             to_append += f' {np.var(e)}'
                         to_append += f' {g}'
-                        file = open('data2.csv', 'a', newline='')
+                        file = open('Dataset/data2.csv', 'a', newline='')
                         with file:
                             writer = csv.writer(file)
                             writer.writerow(to_append.split())
@@ -383,7 +383,7 @@ if(nav == "Basic"):
                 header = header.split()
 
                 # Dataset creation function
-                file = open('data2.csv', 'w', newline='')
+                file = open('Dataset/datanew.csv', 'w', newline='')
                 with file:
                     writer = csv.writer(file)
                     writer.writerow(header)
@@ -414,7 +414,7 @@ if(nav == "Basic"):
                             to_append += f' {np.mean(e)}'
                             to_append += f' {np.var(e)}'
                         to_append += f' {g}'
-                        file = open('data2.csv', 'a', newline='')
+                        file = open('Dataset/datanew.csv', 'a', newline='')
                         with file:
                             writer = csv.writer(file)
                             writer.writerow(to_append.split())
@@ -436,11 +436,11 @@ if(nav == "Basic"):
             select_dataset = st.selectbox("Select Dataset", (
                 "1. Mean Extracted Dataset", "2. Mean and Variance Dataset", "3. GTZAN Dataset"))
             if (select_dataset == "1. Mean Extracted Dataset"):
-                data = pd.read_csv(f"data.csv")
+                data = pd.read_csv(f"Dataset/data.csv")
             elif (select_dataset == "2. Mean and Variance Dataset"):
-                data = pd.read_csv(f"data2.csv")
+                data = pd.read_csv(f"Dataset/data2.csv")
             elif (select_dataset == "3. GTZAN Dataset"):
-                data = pd.read_csv(f"features_30_sec.csv")
+                data = pd.read_csv(f"Dataset/features_30_sec.csv")
 
 #region codesnippet2
         my_expander = st.beta_expander(label='Code Snippet')
@@ -550,8 +550,8 @@ if(nav == "Basic"):
             sns.heatmap(confusion_matr, cmap="Reds", annot=True, 
                 xticklabels = ["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"],
                 yticklabels=["blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"]);
-            plt.savefig("confmatrix.png")
-            image = Image.open('confmatrix.png')
+            plt.savefig("Images/confmatrix.png")
+            image = Image.open('Images/confmatrix.png')
             st.image(image, caption="Confusion Matrix for " + title)
 
         choice = st.selectbox("Select Model for Training/Testing", (
@@ -706,7 +706,7 @@ if(nav == "Basic"):
             if songname is not None:
                 st.audio(songname)
         def modelTrain():
-            data = pd.read_csv(f"data.csv")
+            data = pd.read_csv(f"Dataset/data.csv")
             data.head()
             data = data.iloc[0:, 1:]
             y = data['label']
@@ -785,8 +785,8 @@ if(nav == "Basic"):
             plt.figure(figsize=(12, 8))
             D = librosa.amplitude_to_db(np.abs(librosa.stft(y)), ref=np.max)
             librosa.display.specshow(D, y_axis='linear')
-            plt.savefig('Output.png')
-            image = Image.open('Output.png')
+            plt.savefig('Images/Output.png')
+            image = Image.open('Images/Output.png')
             st.image(image, width=300, caption="Linear-Frequency power spectrogram")
             #endregion
                     
@@ -1001,8 +1001,8 @@ if(nav == "Advanced"):
         col1.audio(audio_bytes, format="audio/wav")
         plt.figure(figsize=(12, 4))
         librosa.display.waveplot(data, color="#502A75")
-        plt.savefig('rawwave1.png')
-        image = Image.open('rawwave1.png')
+        plt.savefig('Images/rawwave01.png')
+        image = Image.open('Images/rawwave01.png')
         col1.image(image, caption="Waveform I")
         audio_choice2 = col2.selectbox(" Select Converted Genre ", (
             "blues", "classical", "country", "disco", "hiphop", "jazz", "metal", "pop", "reggae", "rock"))
@@ -1022,8 +1022,8 @@ if(nav == "Advanced"):
         col2.audio(audio_bytes2, format="audio/wav")
         plt.figure(figsize=(12, 4))
         librosa.display.waveplot(data2, color="#502A75")
-        plt.savefig('rawwave2.png')
-        image = Image.open('rawwave2.png')
+        plt.savefig('Images/rawwave02.png')
+        image = Image.open('Images/rawwave02.png')
         col2.image(image, caption="Waveform II")
 
         if st.button('Convert'):
@@ -1058,7 +1058,7 @@ if(nav == "Advanced"):
             plt.subplot(1, 2, 2)
             plt.title('Style')
             plt.imshow(a_style[:400, :])
-            plt.savefig('content_and_style_spectogram.png')
+            plt.savefig('Images/content_and_style_spectogram.png')
             plt.close()
 
             N_FILTERS = 4096
@@ -1167,8 +1167,8 @@ if(nav == "Advanced"):
             st.audio(audio_bytes, format="audio/wav")
             plt.figure(figsize=(12, 4))
             librosa.display.waveplot(data, color="#502A75")
-            plt.savefig('rawwave1.png')
-            image = Image.open('rawwave1.png')
+            plt.savefig('Images/rawwave001.png')
+            image = Image.open('Images/rawwave001.png')
             st.image(image, caption="Waveform III")
 
         link = '[Request Genre Conversion!](https://docs.google.com/forms/d/e/1FAIpQLSeGCtdPzKEkGGppVBBflG9m-7rbFAzC1jCVRdnlU1UwtzCe0A/viewform?usp=sf_link)'
@@ -1184,7 +1184,7 @@ if(nav == "Advanced"):
         import numpy as np
 
         # Read data
-        data = pd.read_csv(f'features_30_sec.csv', index_col='filename')
+        data = pd.read_csv(f'Dataset/features_30_sec.csv', index_col='filename')
 
         # Extract labels
         labels = data[['label']]
@@ -1218,7 +1218,7 @@ if(nav == "Advanced"):
             # Display the 5 top matches
             st.write("\n*******\nSimilar songs to ", name)
             st.write(series.head(10))
-            series.to_csv('temp.csv', index=True)
+            series.to_csv('Dataset/temp.csv', index=True)
             simlarityindex=1
 
         audio_choice = st.selectbox(" Select Genre ", (' ',
@@ -1244,7 +1244,7 @@ if(nav == "Advanced"):
                 find_similar_songs(audio_temp)
 
                 st.write("loaded similiar song")
-                df = pd.read_csv('temp.csv')
+                df = pd.read_csv('Dataset/temp.csv')
                 list=[0,1,2,3,4,5,6,7,8,9]
                 for l in list:
                     tempch = df.iloc[l]['filename']
@@ -1285,8 +1285,8 @@ if(nav == "Advanced"):
             st.audio(audio_bytes, format="audio/wav")
             plt.figure(figsize=(12, 4))
             librosa.display.waveplot(data, color="#502A75")
-            plt.savefig('rawwave1.png')
-            image = Image.open('rawwave1.png')
+            plt.savefig('Images/rawwave0.png')
+            image = Image.open('Images/rawwave0.png')
             st.image(image, caption="Waveform")
         if(choice == "Upload"):
             audio_data = st.file_uploader('Upload audio', type=["wav"])
@@ -1301,8 +1301,8 @@ if(nav == "Advanced"):
                 data, sr = librosa.load(songname)
                 plt.figure(figsize=(12, 4))
                 librosa.display.waveplot(data, color="#502A75")
-                plt.savefig('rawwave1.png')
-                image = Image.open('rawwave1.png')
+                plt.savefig('Images/rawwave00.png')
+                image = Image.open('Images/rawwave00.png')
                 st.image(image, caption="Waveform")
         if(choice == "Youtube"):
             
@@ -1452,8 +1452,8 @@ if(nav == "Advanced"):
                 fig, ax = plt.subplots()
                 img = librosa.display.specshow(librosa.amplitude_to_db(S_full[:, idx], ref=np.max),
                                             y_axis='log', x_axis='time', sr=sr, ax=ax)
-                fig.savefig('spectro.png')
-                st.image('spectro.png')
+                fig.savefig('Images/spectro.png')
+                st.image('Images/spectro.png')
                 S_filter = librosa.decompose.nn_filter(S_full,
                                                     aggregate=np.median,
                                                     metric='cosine',
