@@ -44,7 +44,6 @@ import time
 from matplotlib.ticker import AutoLocator
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-import pyaudio
 import wave
 import IPython
 from sklearn.naive_bayes import GaussianNB
