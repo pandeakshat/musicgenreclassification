@@ -1497,7 +1497,6 @@ if(nav == "Advanced"):
     
     
     if(options == "Creation"):
-        from midi2audio import FluidSynth
         st.subheader("Creation:")
         st.write("Using Sample Instrument midi file")
         option_instrument=st.selectbox("Keyboard or Keyboard 2", ("Keyboard", "Keyboard 2"))
