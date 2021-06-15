@@ -545,8 +545,6 @@ if(nav == "Basic"):
             # print(confusion_matrix(y_test, preds))
             st.write('Accuracy', title, ':', round(
                 accuracy_score(y_test, preds), 5), '\n')
-            filename = title + ".pkl"
-            joblib.dump(model, filename)
             confusion_matr = confusion_matrix(y_test, preds) #normalize = 'true'
             plt.figure(figsize = (16, 9))
             sns.heatmap(confusion_matr, cmap="Reds", annot=True, 
