@@ -327,7 +327,6 @@ dependencies:
     - tensorboard-plugin-wit==1.8.0
     - tensorflow-addons==0.13.0
     - tensorflow-datasets==4.3.0
-    - tensorflow-docs==0.0.0a029568731fbc206fbe909193ec4861b73cada1d-
     - tensorflow-estimator==2.4.0
     - tensorflow-gan==2.0.0
     - tensorflow-hub==0.12.0
