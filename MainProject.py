@@ -505,12 +505,7 @@ if(nav == "Basic"):
         y = data['Food Name']
         X = data.loc[:, data.columns != 'Food Name']
 
-        #### NORMALIZE X ####
-        cols = X.columns
-        min_max_scaler = preprocessing.MinMaxScaler()
-        np_scaled = min_max_scaler.fit_transform(X)
-        X = pd.DataFrame(np_scaled, columns=cols)
-
+       
         #### PCA 2 COMPONENTS ####
         from sklearn.decomposition import PCA
 
