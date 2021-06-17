@@ -501,8 +501,8 @@ if(nav == "Basic"):
 
         data.head()
         data = data.iloc[0:, 1:]
-        y = data['label']
-        X = data.loc[:, data.columns != 'label']
+        y = data['Food Name']
+        X = data.loc[:, data.columns != 'Food Name']
 
         #### NORMALIZE X ####
         cols = X.columns
