@@ -521,9 +521,9 @@ if(nav == "Basic"):
         # concatenate with target label
         finalDf = pd.concat([principalDf, y], axis=1)
 
-        y = data['label']  # genre variable.
+        y = data['Food Name']  # genre variable.
         # select all columns but not the labels
-        X = data.loc[:, data.columns != 'label']
+        X = data.loc[:, data.columns != 'Food Name']
 
         #### NORMALIZE X ####
 
