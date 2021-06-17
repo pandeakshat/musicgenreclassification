@@ -502,8 +502,8 @@ if(nav == "Basic"):
         data.head()
         data.dropna(inplace=True)
         data = data.iloc[0:, 1:]
-        y = data['Food Name']
-        X = data.loc[:, data.columns != 'Food Name']
+        y = data['label']
+        X = data.loc[:, data.columns != 'label']
 
        
         #### PCA 2 COMPONENTS ####
@@ -517,9 +517,9 @@ if(nav == "Basic"):
         # concatenate with target label
         finalDf = pd.concat([principalDf, y], axis=1)
 
-        y = data['Food Name']  # genre variable.
+        y = data['label']  # genre variable.
         # select all columns but not the labels
-        X = data.loc[:, data.columns != 'Food Name']
+        X = data.loc[:, data.columns != 'label']
 
         #### NORMALIZE X ####
 
