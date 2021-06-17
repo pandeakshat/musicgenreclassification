@@ -530,12 +530,6 @@ if(nav == "Basic"):
 
         # Normalize so everything is on the same scale.
 
-        cols = X.columns
-        min_max_scaler = preprocessing.MinMaxScaler()
-        np_scaled = min_max_scaler.fit_transform(X)
-
-        # new data frame with the new scaled data.
-        X = pd.DataFrame(np_scaled, columns=cols)
 
         X_train, X_test, y_train, y_test = train_test_split(
             X, y, test_size=0.3, random_state=42)
