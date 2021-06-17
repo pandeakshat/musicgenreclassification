@@ -500,6 +500,7 @@ if(nav == "Basic"):
 #endregion
 
         data.head()
+        data.dropna()
         data = data.iloc[0:, 1:]
         y = data['Food Name']
         X = data.loc[:, data.columns != 'Food Name']
